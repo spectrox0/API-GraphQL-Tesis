@@ -1,0 +1,8 @@
+{ "env":
+    {
+    "MONGO_DB": "forum-real-time",
+    "CREDENTIALS_JWT" :"candy102" ,
+    "MONGO_PASSWORD" :"candy102",
+    "MONGO_USER" :"spectrox"
+
+}}
