@@ -1,30 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-     email : { 
+const postSchema = new Schema({
+     title : { 
          type: String,
          required:true
      },
-     name: {
-        type: String,
-        required:true 
+      creator: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
      },
-     password: {
-         type: String, 
-         required: true
-     } , 
-     username: {
-         type:String, 
-         required:true 
+     date: {
+         type: Date , 
+         required:true, 
+         default: Date().now()
      },
      urlImg: {
          type:String, 
          required:true
      },
-     posts: [ {
+     users: [ {
         type: Schema.Types.ObjectId, 
-        ref: 'Post'
+        ref: 'User'
      }],
     active: {
         type:Boolean, 
@@ -34,4 +31,4 @@ const userSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Post', postSchema);

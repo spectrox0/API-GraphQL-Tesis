@@ -60,6 +60,34 @@ module.exports = {
             tokenExpiration:6}
 
     },
+    updateUser: async (_ , {userInput} , context ) => {
+        if(context.userId!== userInput._id) {
+            throw new Error("Incorrect user"); 
+        } 
+        try { 
+        const user = await User.findOne({_id: userInput._id}); 
 
+        const isEqual = await bcrypt.compare(userInput.password, user.password);
+        if(!isEqual) {
+            throw new Error('user or password incorrect'); 
+        }
+
+        await User.updateOne(
+             {_id: userInput._id}, {
+             $set: {
+                  name: userInput.name,
+                  username: userInput.username,
+                  urlImg: userInput.urlImg
+                    } });
+        await user.save();
+        return { 
+        ...user._doc,
+        _id: user.id
+        }
+
+    } catch (err) {
+        throw err;
+    }
+    }
   
 } 
