@@ -10,6 +10,7 @@ const isAuth = require('./middleware/is-Auth.js');
 const server = new ApolloServer({ 
     typeDefs: graphqlSchema,
     resolvers:resolvers, 
+    introspection:true,
     context: isAuth
     });
  

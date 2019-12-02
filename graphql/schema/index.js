@@ -3,12 +3,15 @@ const {gql } = require('apollo-server');
 module.exports = gql`
 enum category {
     C
-    Python
-    Javascript
-    Java
-    Php
-    React_Native
-    NodeJs
+    PYTHON
+    JAVASCRIPT
+    JAVA
+    PHP
+    REACT_NATIVE
+    REACT_JS
+    NODE_JS
+    ANGULAR
+    SQL
 }
 
 type User {
