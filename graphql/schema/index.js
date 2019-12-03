@@ -71,6 +71,14 @@ input PostInput {
     category: category !
     title: String!
     urlImg: String!
+    creator: String!
+}
+
+input MessageInput {
+    post: String! 
+    content: String
+    title: String!
+    urlImg: String!
 }
 
 type Query {
@@ -82,5 +90,11 @@ type Mutation {
     updateUser(userInput: UpdateUserInput!): User
 
     createPost(postInput: PostInput!) : Post
+    createMessage(messageInput: MessageInput): Message
+}
+type Subscription {
+    postAdded: Post
+    messageAdded(postId: String!): Message
+    userAdded(postId:String!): Message
 }
 `

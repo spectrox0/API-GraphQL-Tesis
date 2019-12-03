@@ -1,6 +1,11 @@
 const jwt = require('jsonwebtoken');
-module.exports = ({req}) => {
+
+module.exports = ({req,connection}) => {
  const authHeader = req.get('Authorization');
+ if (connection) {
+  // check connection for metadata
+  return connection.context;
+}
   
   if(!authHeader) {
       return;
