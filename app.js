@@ -9,7 +9,7 @@ const isAuth = require('./middleware/is-Auth.js');
 
 const server = new ApolloServer({ 
     typeDefs: graphqlSchema,
-    resolvers:resolvers, 
+    resolvers, 
     introspection:true,
     context: isAuth
     });
@@ -18,9 +18,9 @@ const port = process.env.PORT || 4000;
 mongoose.connect(
 `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-oaxis.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`)
 .then( () => {
-  server.listen({ port: port }).then(({ url }) => {
+  server.listen({ port }).then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`)
-    console("@a")
+
   });
   
 }).
