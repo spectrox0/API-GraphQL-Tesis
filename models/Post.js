@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
      title : { 
-         type: String,
+          type: String,
          required:true
      },
       creator: {
@@ -13,7 +13,7 @@ const postSchema = new Schema({
      date: {
          type: Date , 
          required:true, 
-         default: Date().now()
+         default: new Date()
      },
      urlImg: {
          type:String, 

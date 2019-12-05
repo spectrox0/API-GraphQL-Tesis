@@ -1,15 +1,23 @@
 
- const authQuerys = require('./querys/auth'); 
+ //QUERYS 
+const authQuerys = require('./querys/auth'); 
+const postQuerys = require('./querys/post');
+//MUTATIONS
 const authMutation = require('./mutations/auth'); 
+const postMutation = require('./mutations/post')
+
+//SUBSCRIPTION 
 const postSubcription = require('./subcriptions/post');
+
 const rootResolvers = {
     Query: {
-    ...authQuerys,
+     ...authQuerys,
+     ...postQuerys
     
     } ,
     Mutation: {
-    ...authMutation,
-
+    ...authMutation, 
+    ...postMutation
     },
     Subscription: {
 

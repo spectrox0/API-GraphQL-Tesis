@@ -26,12 +26,8 @@ type User {
 }
 
 type AuthData {
-    userId: ID!
     token: String!
     tokenExpiration: Int!
-    name: String!
-    username: String!
-    urlImg: String
 
 }
 type Message {
@@ -47,6 +43,8 @@ type Post {
    category: category !
    title: String!
    urlImg: String!
+   creator: User!
+   date: String!
    lastMessage: String
 }
 
@@ -75,7 +73,7 @@ input PostInput {
 }
 
 input MessageInput {
-    post: String! 
+    postId: String! 
     content: String
     title: String!
     urlImg: String!
@@ -83,14 +81,15 @@ input MessageInput {
 
 type Query {
     currentUser : User
+    posts : [Post!]!
 }
 type Mutation {
     createUser(userInput: UserInput!) : User
     login(username: String!,password: String!): AuthData!
     updateUser(userInput: UpdateUserInput!): User
 
-    createPost(postInput: PostInput!) : Post
-    createMessage(messageInput: MessageInput): Message
+    createPost(postInput: PostInput!) : Post!
+    createMessage(messageInput: MessageInput): Message!
 }
 type Subscription {
     postAdded: Post

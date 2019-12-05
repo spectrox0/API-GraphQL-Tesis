@@ -1,12 +1,17 @@
-const bcrypt = require('bcryptjs');
 const User = require ('../../../models/User.js');
-const jwt = require('jsonwebtoken')
+const {post} = require('../merge');
 
+
+
+const transformPosts = (posts)=> {
+   return posts.map( element => post(element));
+}
 const transformUser = user => {
   return {
    ...user._doc, 
    password: null, 
-   _id: user.id
+   _id: user.id,
+   posts : transformPosts.bind(this,user._doc.posts)
   }
 }
 module.exports= { 
@@ -14,6 +19,7 @@ module.exports= {
       if(!context.userId) {
          return null;
       }
+      post.bind(this,"sasa")
       const user = await User.findById(context.userId);
      return transformUser(user);
    }

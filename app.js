@@ -20,6 +20,7 @@ mongoose.connect(
 .then( () => {
   server.listen({ port: port }).then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`)
+    console("@a")
   });
   
 }).

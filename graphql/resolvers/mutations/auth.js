@@ -46,17 +46,13 @@ module.exports = {
         if(!isEqual) {
             throw new Error('user or password incorrect'); 
         }
-        const token = jwt.sign({userId: user.id , username :user.username}, process.env.CREDENTIALS_JWT, {
-        expiresIn: '6h'
+        const token = jwt.sign({userId: user.id}, process.env.CREDENTIALS_JWT, {
+        expiresIn: '12h'
           }
         ); 
         
         return { 
-            userId: user.id ,
-            token:token , 
-            name: user.name, 
-            username: user.username, 
-            urlImg: user.urlImg,
+            token:token ,
             tokenExpiration:6}
 
     },
@@ -80,8 +76,8 @@ module.exports = {
                   urlImg: userInput.urlImg
                     } });
         await user.save();
-        return { 
-        ...user._doc,
+        return {  
+        ... user._doc,
         _id: user.id
         }
 
