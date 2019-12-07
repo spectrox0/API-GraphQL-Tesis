@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 // QUERYS
 const authQuerys = require("./querys/auth");
 const postQuerys = require("./querys/post");
@@ -19,6 +18,8 @@ const rootResolvers = {
     ...postMutation,
     ...messageMutation
   },
-  Subscription: {}
+  Subscription: {
+    ...postSubcription
+  }
 };
 module.exports = rootResolvers;

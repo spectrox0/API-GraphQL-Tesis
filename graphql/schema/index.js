@@ -46,7 +46,7 @@ module.exports = gql`
     date: String!
     lastMessage: String
     messages: [Message!]!
-    members: [Users!]
+    members: [User!]
   }
 
   input UserInput {

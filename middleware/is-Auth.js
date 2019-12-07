@@ -1,30 +1,28 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-module.exports = ({req,connection}) => {
- const authHeader = req.get('Authorization');
- if (connection) {
-  // check connection for metadata
-  return connection.context;
-}
-  
-  if(!authHeader) {
-      return;
+module.exports = ({ req, connection }) => {
+  const authHeader = req.get("Authorization");
+  if (connection) {
+    // check connection for metadata
+    return connection.context;
   }
-  const token = authHeader.split(' ')[1]; 
-  if(!token || token==="") {
-   
+
+  if (!authHeader) {
     return;
   }
-  let decodedToken; 
+  const token = authHeader.split(" ")[1];
+  if (!token || token === "") {
+    return;
+  }
+  let decodedToken;
   try {
-  decodedToken = jwt.verify(token,  process.env.CREDENTIALS_JWT); 
-  
-}catch(err){ 
-  return;
-}
-   if(!decodedToken) {
+    decodedToken = jwt.verify(token, process.env.CREDENTIALS_JWT);
+  } catch (err) {
     return;
-   }
-   const userId = decodedToken.userId; 
-   return {token, userId  }
-}
+  }
+  if (!decodedToken) {
+    return;
+  }
+  const userId = decodedToken.userId;
+  return { token, userId };
+};
