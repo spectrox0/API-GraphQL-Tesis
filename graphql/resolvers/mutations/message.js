@@ -14,12 +14,11 @@ const transformMessage = message => {
   };
 };
 module.exports = {
-  createMessage: async (_, { messageInput }, { pubsub }) => {
+  createMessage: async (_, { messageInput }, { pubsub, userId }) => {
     try {
-      const user = await User.findById(messageInput.userId);
-      if (!user) throw new Error("No user");
-      const post = await Post.findById(messageInput.postId);
-      if (!post) throw new Error("No post");
+      if (userId !== messageInput.userId) {
+        return new Error("No authorized");
+      }
       const message = await new Message({
         content: messageInput.content,
         user: messageInput.userId,
