@@ -26,6 +26,10 @@ const postSchema = new Schema({
       ref: "User"
     }
   ],
+  category: {
+    type: String,
+    required: true
+  },
   active: {
     type: Boolean,
     required: true,

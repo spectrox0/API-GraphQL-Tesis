@@ -7,6 +7,7 @@ const postMutation = require("./mutations/post");
 const messageMutation = require("./mutations/message");
 // SUBSCRIPTION
 const postSubcription = require("./subcriptions/post");
+const messageSubscription = require("./subcriptions/message");
 
 const rootResolvers = {
   Query: {
@@ -19,7 +20,7 @@ const rootResolvers = {
     ...messageMutation
   },
   Subscription: {
-    ...postSubcription
+    ...messageSubscription
   }
 };
 module.exports = rootResolvers;

@@ -11,7 +11,8 @@ const messages = async postId => {
     return {
       ...message._doc,
       _id: message.id,
-      user: user.bind(this, message._doc.user)
+      user: user.bind(this, message._doc.user),
+      date: dateToString(message._doc.date)
     };
   });
 };
@@ -54,6 +55,43 @@ module.exports = {
       if (!post) throw new Error("not found post");
 
       return transformPost(post);
+    } catch (err) {
+      throw err;
+    }
+  },
+  searchPost: async (_, { first, after, categories, word }) => {
+    try {
+      let posts;
+      if (categories.length > 0) {
+        posts = await Post.find({
+          category: {
+            $in: categories
+          },
+          title: {
+            $regex: `^${word}`,
+            $options: "i"
+          }
+        })
+          .skip(after)
+          .limit(first);
+      } else {
+        posts = await Post.find({
+          title: {
+            $regex: `^${word}`,
+            $options: "i"
+          }
+        })
+          .skip(after)
+          .limit(first);
+      }
+      return posts.map(post => transformPost(post));
+    } catch (err) {
+      throw err;
+    }
+  },
+  nroPosts: async () => {
+    try {
+      const nro = Post.count();
     } catch (err) {
       throw err;
     }

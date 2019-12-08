@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const graphqlSchema = require("./graphql/schema/index");
 const resolvers = require("./graphql/resolvers/index");
 const isAuth = require("./middleware/is-Auth.js");
+const subscriptions = require("./middleware/suscriptions.js");
 
 const server = new ApolloServer({
   typeDefs: graphqlSchema,
   resolvers,
   introspection: true,
-  context: isAuth
+  context: isAuth,
+  subscriptions
 });
 
 const port = process.env.PORT || 4000;

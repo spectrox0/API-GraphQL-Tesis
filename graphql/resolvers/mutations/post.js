@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-catch */
 const Post = require("../../../models/Post.js");
 const User = require("../../../models/User.js");
+const Message = require("../../../models/Message.js");
 const { user } = require("../merge");
 
 const transformPost = post => {
@@ -11,7 +12,7 @@ const transformPost = post => {
   };
 };
 module.exports = {
-  createPost: async (_, { postInput }, context) => {
+  createPost: async (_, { postInput, contentMessage }, context) => {
     if (!context.token) {
       throw new Error("No Authorized");
     }
@@ -26,7 +27,15 @@ module.exports = {
         urlImg: postInput.urlImg,
         category: postInput.category
       });
+      newPost.users.push(postInput.creator);
+
       const result = await newPost.save();
+      const newMessage = await new Message({
+        content: contentMessage,
+        user: postInput.creator,
+        post: result.id
+      });
+      await newMessage.save();
       creator.posts.push(result.id);
       await creator.save();
 

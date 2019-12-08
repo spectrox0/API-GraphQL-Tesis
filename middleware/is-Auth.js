@@ -1,12 +1,14 @@
 const jwt = require("jsonwebtoken");
+const { pubsub } = require("../graphql/resolvers/pubsub.js");
 
 module.exports = ({ req, connection }) => {
-  const authHeader = req.get("Authorization");
   if (connection) {
     // check connection for metadata
+    return { pubsub };
     return connection.context;
   }
 
+  const authHeader = req.get("Authorization");
   if (!authHeader) {
     return;
   }
@@ -23,6 +25,7 @@ module.exports = ({ req, connection }) => {
   if (!decodedToken) {
     return;
   }
-  const userId = decodedToken.userId;
-  return { token, userId };
+  const { userId } = decodedToken;
+
+  return { token, userId, pubsub };
 };
