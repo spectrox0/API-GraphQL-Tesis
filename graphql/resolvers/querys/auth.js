@@ -1,23 +1,37 @@
 const User = require("../../../models/User.js");
-const { post } = require("../merge");
+const Post = require("../../../models/Post.js");
 
-const transformPosts = posts => {
-  return posts.map(element => post(element));
+const { dateToString } = require("../date.js");
+
+const transformPosts = async id => {
+  const posts = await Post.find({ creator: id });
+  return posts.map(post => {
+    return {
+      ...post._doc,
+      _id: post.id,
+      date: dateToString(post.date)
+    };
+  });
 };
+
 const transformUser = user => {
   return {
     ...user._doc,
     password: null,
     _id: user.id,
-    posts: transformPosts.bind(this, user._doc.posts)
+    posts: transformPosts(user.id)
   };
 };
 module.exports = {
   currentUser: async (_, args, context) => {
-    if (!context.userId) {
-      return null;
+    try {
+      if (!context.userId) {
+        return null;
+      }
+      const user = await User.findById(context.userId);
+      return transformUser(user);
+    } catch (err) {
+      throw err;
     }
-    const user = await User.findById(context.userId);
-    return transformUser(user);
   }
 };

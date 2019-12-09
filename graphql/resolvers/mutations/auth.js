@@ -56,8 +56,8 @@ module.exports = {
     });
 
     return {
-      token: token,
-      tokenExpiration: 6
+      _id: user.id,
+      token: token
     };
   },
   updateUser: async (_, { userInput }, context) => {

@@ -88,12 +88,5 @@ module.exports = {
     } catch (err) {
       throw err;
     }
-  },
-  nroPosts: async () => {
-    try {
-      const nro = Post.count();
-    } catch (err) {
-      throw err;
-    }
   }
 };

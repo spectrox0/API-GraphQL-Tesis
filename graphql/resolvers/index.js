@@ -20,7 +20,8 @@ const rootResolvers = {
     ...messageMutation
   },
   Subscription: {
-    ...messageSubscription
+    ...messageSubscription,
+    ...postSubcription
   }
 };
 module.exports = rootResolvers;

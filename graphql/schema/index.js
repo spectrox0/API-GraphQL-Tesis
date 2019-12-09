@@ -36,13 +36,14 @@ module.exports = gql`
   }
 
   type AuthData {
+    _id: ID!
     token: String!
-    tokenExpiration: Int!
   }
   type Message {
     _id: ID!
     user: User!
     content: String!
+    active: Boolean!
     post: Post!
     date: String!
   }
@@ -56,7 +57,6 @@ module.exports = gql`
     date: String!
     lastMessage: String
     messages: [Message!]!
-    members: [User!]
   }
 
   input UserInput {
@@ -99,7 +99,6 @@ module.exports = gql`
       categories: [Category!]!
       word: String!
     ): [Post!]!
-    nroPosts: Int!
   }
 
   type Mutation {
@@ -111,8 +110,8 @@ module.exports = gql`
     createMessage(messageInput: MessageInput): Message!
   }
   type Subscription {
-    postAdded: Post
+    postAddedUser(userId: String!): Post
     messageAdded(postId: String!): Message
-    userAdded(postId: String!): Message
+    lastMessagePost(postId: String!): Message
   }
 `;

@@ -1,7 +1,8 @@
+const { withFilter } = require("apollo-server");
+
 module.exports = {
   messageAdded: {
-    subscribe: (root, { postId }, { pubsub }) => {
-      return pubsub.asyncIterator([`MESSAGE_ADDED_${postId}`]);
-    }
+    subscribe: (root, { postId }, { pubsub }) =>
+      pubsub.asyncIterator([`MESSAGE_ADDED_${postId}`])
   }
 };

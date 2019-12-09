@@ -12,8 +12,8 @@ const transformPost = post => {
   };
 };
 module.exports = {
-  createPost: async (_, { postInput, contentMessage }, context) => {
-    if (!context.token) {
+  createPost: async (_, { postInput, contentMessage }, { token, pubsub }) => {
+    if (!token) {
       throw new Error("No Authorized");
     }
     try {
@@ -27,18 +27,19 @@ module.exports = {
         urlImg: postInput.urlImg,
         category: postInput.category
       });
-      newPost.users.push(postInput.creator);
 
       const result = await newPost.save();
+
       const newMessage = await new Message({
         content: contentMessage,
         user: postInput.creator,
         post: result.id
       });
       await newMessage.save();
-      creator.posts.push(result.id);
-      await creator.save();
 
+      pubsub.publish(`POST_ADDED_${postInput.creator}`, {
+        postAddedUser: transformPost(result)
+      });
       return transformPost(result);
     } catch (err) {
       throw err;
