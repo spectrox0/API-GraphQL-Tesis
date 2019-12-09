@@ -6,6 +6,7 @@ module.exports = async ({ req, connection }) => {
 
   if (connection) {
     authToken = connection.context.authToken;
+    if (!authToken) return { pubsub };
   } else {
     authToken = req.get("Authorization");
   }
