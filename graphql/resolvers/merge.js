@@ -28,6 +28,34 @@ const message = async id => {
   };
 };
 
+const messages = async postId => {
+  const res = await Message.find({ post: postId })
+    .limit(100)
+    .sort({ _id: -1 });
+  return res.map(message => {
+    return {
+      ...message._doc,
+      _id: message.id,
+      user: user.bind(this, message._doc.user),
+      date: dateToString(message._doc.date)
+    };
+  });
+};
+
+const lastMessage = async postId => {
+  const res = await Message.find({ post: postId }).limit(1);
+  if (res[0]) {
+    return {
+      ...res[0]._doc,
+      _id: res[0].id,
+      user: user.bind(this, res[0]._doc.user)
+    };
+  }
+  return null;
+};
+
 exports.post = post;
 exports.message = message;
 exports.user = user;
+exports.messages = messages;
+exports.lastMessage = lastMessage;

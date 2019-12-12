@@ -2,6 +2,7 @@ const User = require("../../../models/User.js");
 const Post = require("../../../models/Post.js");
 
 const { dateToString } = require("../date.js");
+const { user, messages, lastMessage } = require("../merge");
 
 const transformPosts = async id => {
   const posts = await Post.find({ creator: id });
@@ -9,7 +10,9 @@ const transformPosts = async id => {
     return {
       ...post._doc,
       _id: post.id,
-      date: dateToString(post.date)
+      date: dateToString(post._doc.date),
+      messages: messages(post.id),
+      lastMessage: lastMessage(post.id)
     };
   });
 };
