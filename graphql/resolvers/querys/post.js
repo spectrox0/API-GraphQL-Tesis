@@ -1,6 +1,5 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const Post = require("../../../models/Post.js");
-const Message = require("../../../models/Message.js");
 const { user, messages, lastMessage } = require("../merge");
 
 const { dateToString } = require("../date.js");
