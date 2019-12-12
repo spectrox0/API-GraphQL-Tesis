@@ -87,6 +87,10 @@ module.exports = gql`
     content: String!
     userId: String!
   }
+  type Notifications {
+    user: User!
+    message: Message!
+  }
 
   type Query {
     currentUser: User
@@ -99,6 +103,8 @@ module.exports = gql`
       categories: [Category!]!
       word: String!
     ): [Post!]!
+
+    messages(first: Int!, after: Int!, postId: String!): [Message!]!
   }
 
   type Mutation {
