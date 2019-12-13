@@ -11,13 +11,23 @@ const transformMessage = message => ({
 module.exports = {
   messages: async (_, { first, after, postId }) => {
     try {
-      const messages = Message.find({ post: postId, active: true })
-        .sort({ _id: -1 })
-        .limit(first)
-        .after(after);
-      if (messages) {
-        return messages.map(message => transformMessage(message));
+      let messages;
+      if (!after) {
+        messages = await Message.find({ post: postId, active: true })
+          .sort({ _id: -1 })
+          .limit(first);
+      } else {
+        messages = await Message.find({
+          post: postId,
+          active: true,
+          _id: { $lt: after }
+        })
+          .sort({ _id: -1 })
+          .limit(first);
+        console.log(messages);
       }
+
+      return messages.map(message => transformMessage(message));
     } catch (err) {
       throw err;
     }

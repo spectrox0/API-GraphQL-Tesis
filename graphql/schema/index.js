@@ -33,6 +33,7 @@ module.exports = gql`
     urlImg: String
     active: Boolean!
     posts: [Post!]!
+    notifications: [Notification!]
   }
 
   type AuthData {
@@ -47,7 +48,12 @@ module.exports = gql`
     post: Post!
     date: String!
   }
-
+  type Notification {
+    _id: ID!
+    user: User!
+    message: Message!
+    active: Boolean!
+  }
   type Post {
     _id: ID!
     category: Category
@@ -104,7 +110,9 @@ module.exports = gql`
       word: String!
     ): [Post!]!
 
-    messages(first: Int!, after: Int!, postId: String!): [Message!]!
+    messages(postId: String!, first: Int!, after: String): [Message!]!
+
+    notifications(userId: String!): [Notification!]!
   }
 
   type Mutation {
