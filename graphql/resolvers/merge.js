@@ -12,7 +12,7 @@ const user = async id => {
 };
 
 const post = async id => {
-  console.log("holaaa");
+  console.log("entra a post");
   const res = await Post.findById(id);
   return {
     ...res._doc,
@@ -22,7 +22,6 @@ const post = async id => {
 };
 
 const message = async id => {
-  console.log("holaaa");
   const message = await Message.findById(id);
   return {
     ...message._doc,
