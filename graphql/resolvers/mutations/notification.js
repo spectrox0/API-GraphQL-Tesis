@@ -1,20 +1,23 @@
 const Notification = require("../../../models/Notification.js");
+
 const { message, post } = require("../merge");
 
 const transformNotification = notification => ({
   ...notification._doc,
   _id: notification.id,
-  message: message.bind(this, notification._doc.message),
-  post: post.bind(this, notification._doc.post)
+
+  message: message.bind(this, notification._doc.message)
 });
 module.exports = {
-  notifications: async (_, { userId }) => {
+  deleteNotifications: async (_, { postId, userId }) => {
     try {
-      const notifications = await Notification.find({
-        active: true,
+      const res = await Notification.deleteMany({
+        post: postId,
         user: userId
-      }).sort({
-        _id: -1
+      });
+      if (!res) throw new Error("error");
+      const notifications = await Notification.find({
+        user: userId
       });
       return notifications.map(notification =>
         transformNotification(notification)

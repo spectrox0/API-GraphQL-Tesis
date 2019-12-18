@@ -52,6 +52,7 @@ module.exports = gql`
     _id: ID!
     user: User!
     message: Message!
+    post: Post!
     active: Boolean!
   }
   type Post {
@@ -93,10 +94,6 @@ module.exports = gql`
     content: String!
     userId: String!
   }
-  type Notifications {
-    user: User!
-    message: Message!
-  }
 
   type Query {
     currentUser: User
@@ -127,5 +124,6 @@ module.exports = gql`
     postAddedUser(userId: String!): Post
     messageAdded(postId: String!): Message
     lastMessagePost(postId: String!): Message
+    notificationAdded(userId: String!): Notification
   }
 `;

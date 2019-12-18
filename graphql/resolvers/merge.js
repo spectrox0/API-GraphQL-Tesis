@@ -12,6 +12,7 @@ const user = async id => {
 };
 
 const post = async id => {
+  console.log("holaaa");
   const res = await Post.findById(id);
   return {
     ...res._doc,
@@ -21,10 +22,13 @@ const post = async id => {
 };
 
 const message = async id => {
+  console.log("holaaa");
   const message = await Message.findById(id);
   return {
     ...message._doc,
-    _id: message.id
+    _id: message.id,
+    user: user.bind(this, message._doc.user),
+    date: dateToString(message._doc.date)
   };
 };
 

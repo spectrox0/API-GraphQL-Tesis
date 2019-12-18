@@ -11,6 +11,10 @@ const messageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Message"
   },
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "Post"
+  },
   active: {
     type: Boolean,
     required: true,
