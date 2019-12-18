@@ -24,7 +24,6 @@ module.exports = {
         })
           .sort({ _id: -1 })
           .limit(first);
-        console.log(messages);
       }
 
       return messages.map(message => transformMessage(message));

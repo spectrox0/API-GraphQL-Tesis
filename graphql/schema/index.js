@@ -119,6 +119,8 @@ module.exports = gql`
 
     createPost(postInput: PostInput!, contentMessage: String!): Post!
     createMessage(messageInput: MessageInput): Message!
+
+    deleteNotifications(postId: String!, userId: String!): [Notification!]!
   }
   type Subscription {
     postAddedUser(userId: String!): Post

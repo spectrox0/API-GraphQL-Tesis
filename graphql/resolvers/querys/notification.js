@@ -1,7 +1,7 @@
 const Notification = require("../../../models/Notification.js");
 const { message, post } = require("../merge");
 
-const transformNotification = notification => ({
+const transformNotification = async notification => ({
   ...notification._doc,
   _id: notification.id,
   message: message.bind(this, notification._doc.message),
