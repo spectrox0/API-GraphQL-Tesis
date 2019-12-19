@@ -97,7 +97,7 @@ module.exports = gql`
 
   type Query {
     currentUser: User
-
+    postsByCreator(userId: String!): [Post!]!
     posts: [Post!]!
     post(_id: String!): Post!
     searchPost(

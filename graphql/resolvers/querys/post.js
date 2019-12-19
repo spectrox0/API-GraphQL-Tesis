@@ -17,7 +17,7 @@ const transformPost = post => {
 module.exports = {
   posts: async () => {
     try {
-      const posts = await Post.find({ active: true }).limit(100);
+      const posts = await Post.find({ active: true });
       if (posts) {
         return posts.map(post => transformPost(post));
       }
@@ -61,6 +61,14 @@ module.exports = {
           .skip(after)
           .limit(first);
       }
+      return posts.map(post => transformPost(post));
+    } catch (err) {
+      throw err;
+    }
+  },
+  postsByCreator: async (_, { userId }, context) => {
+    try {
+      const posts = await Post.find({ creator: userId, active: true });
       return posts.map(post => transformPost(post));
     } catch (err) {
       throw err;
