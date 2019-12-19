@@ -65,6 +65,10 @@ module.exports = gql`
     lastMessage: String
     messages: [Message!]!
   }
+  type Messages {
+    hasNextPage: Boolean!
+    messages: [Message!]!
+  }
 
   input UserInput {
     email: String!
@@ -107,7 +111,7 @@ module.exports = gql`
       word: String!
     ): [Post!]!
 
-    messages(postId: String!, first: Int!, after: String): [Message!]!
+    messages(postId: String!, first: Int!, after: String): Messages!
 
     notifications(userId: String!): [Notification!]!
   }
