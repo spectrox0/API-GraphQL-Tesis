@@ -3,12 +3,14 @@ const Post = require("../../../models/Post.js");
 const User = require("../../../models/User.js");
 const Message = require("../../../models/Message.js");
 const { user } = require("../merge");
+const { dateToString } = require("../date.js");
 
 const transformPost = post => {
   return {
     ...post._doc,
     _id: post.id,
-    creator: user.bind(this, post._doc.creator)
+    creator: user.bind(this, post._doc.creator),
+    date: dateToString(post._doc.date)
   };
 };
 module.exports = {
