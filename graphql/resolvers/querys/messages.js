@@ -24,10 +24,16 @@ module.exports = {
         })
           .sort({ _id: -1 })
           .limit(first);
-        console.log(messages);
       }
-
-      return messages.map(message => transformMessage(message));
+      const hasNextPage = await Message.findOne({
+        _id: { $lt: messages[messages.length - 1].id },
+        post: postId,
+        active: true
+      });
+      return {
+        messages: messages.map(message => transformMessage(message)),
+        hasNextPage: !!hasNextPage
+      };
     } catch (err) {
       throw err;
     }

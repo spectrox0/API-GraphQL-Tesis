@@ -11,16 +11,6 @@ const user = async id => {
   };
 };
 
-const post = async id => {
-  console.log("entra a post");
-  const res = await Post.findById(id);
-  return {
-    ...res._doc,
-    _id: res.id,
-    date: dateToString(res._doc.date)
-  };
-};
-
 const message = async id => {
   const message = await Message.findById(id);
   return {
@@ -46,7 +36,7 @@ const messages = async postId => {
 };
 
 const lastMessage = async postId => {
-  const res = await Message.find({ post: postId }).limit(1);
+  const res = await Message.findOne({ post: postId }).sort({ _id: -1 });
   if (res[0]) {
     return {
       ...res[0]._doc,
@@ -57,6 +47,15 @@ const lastMessage = async postId => {
   return null;
 };
 
+const post = async id => {
+  const res = await Post.findById(id);
+  return {
+    ...res._doc,
+    _id: res.id,
+    date: dateToString(res._doc.date),
+    creator: user.bind(this, res._doc.creator)
+  };
+};
 exports.post = post;
 exports.message = message;
 exports.user = user;

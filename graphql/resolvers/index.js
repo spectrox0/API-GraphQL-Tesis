@@ -7,6 +7,7 @@ const notificationQuerys = require("./querys/notification");
 const authMutation = require("./mutations/auth");
 const postMutation = require("./mutations/post");
 const messageMutation = require("./mutations/message");
+const notificationMutation = require("./mutations/notification");
 // SUBSCRIPTION
 const postSubcription = require("./subcriptions/post");
 const messageSubscription = require("./subcriptions/message");
@@ -22,7 +23,8 @@ const rootResolvers = {
   Mutation: {
     ...authMutation,
     ...postMutation,
-    ...messageMutation
+    ...messageMutation,
+    ...notificationMutation
   },
   Subscription: {
     ...messageSubscription,
