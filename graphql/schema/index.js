@@ -99,6 +99,11 @@ module.exports = gql`
     userId: String!
   }
 
+  input NotificationInput {
+    postId: String!
+    messageId: String!
+    userId: String!
+  }
   type Query {
     currentUser: User
     postsByCreator(userId: String!): [Post!]!
@@ -125,6 +130,7 @@ module.exports = gql`
     createMessage(messageInput: MessageInput): Message!
 
     deleteNotifications(postId: String!, userId: String!): [Notification!]!
+    createNotification(notificationInput: NotificationInput!): Notification!
   }
   type Subscription {
     postAddedUser(userId: String!): Post

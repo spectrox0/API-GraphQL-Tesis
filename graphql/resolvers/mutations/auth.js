@@ -65,7 +65,7 @@ module.exports = {
       throw new Error("Incorrect user");
     }
     try {
-      const user = await User.findOne({ _id: userInput._id });
+      const user = await User.findById(userInput._id);
 
       const isEqual = await bcrypt.compare(userInput.password, user.password);
       if (!isEqual) {

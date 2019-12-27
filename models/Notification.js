@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const messageSchema = new Schema({
+const notificationSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -22,4 +22,4 @@ const messageSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("Notifications", messageSchema);
+module.exports = mongoose.model("Notifications", notificationSchema);
