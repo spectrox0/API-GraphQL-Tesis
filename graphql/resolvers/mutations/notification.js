@@ -1,12 +1,13 @@
 const Notification = require("../../../models/Notification.js");
 
-const { message, post } = require("../merge");
+const { message, post, user } = require("../merge");
 
 const transformNotification = notification => ({
   ...notification._doc,
   _id: notification.id,
   message: message.bind(this, notification._doc.message),
-  post: post.bind(this, notification._doc.post)
+  post: post.bind(this, notification._doc.post),
+  user: user.bind(this, notification._doc.user)
 });
 
 module.exports = {
@@ -36,7 +37,8 @@ module.exports = {
       });
       const resNotification = await notification.save();
       pubsub.publish("NOTIFICATION_ADDED", {
-        notificationAdded: transformNotification(resNotification)
+        notificationAdded: transformNotification(resNotification),
+        user: resNotification._doc.user
       });
       return transformNotification(resNotification);
     } catch (err) {

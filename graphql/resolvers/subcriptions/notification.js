@@ -4,7 +4,7 @@ module.exports = {
   notificationAdded: {
     subscribe: withFilter(
       (_, args, { pubsub }) => pubsub.asyncIterator("NOTIFICATION_ADDED"),
-      ({ notificationAdded: { user } }, { userId }) => {
+      ({ user }, { userId }) => {
         // eslint-disable-next-line eqeqeq
         return user == userId;
       }

@@ -33,7 +33,7 @@ module.exports = gql`
     urlImg: String
     active: Boolean!
     posts: [Post!]!
-    notifications: [Notification!]
+    notifications: [Notification!]!
   }
 
   type AuthData {

@@ -8,18 +8,11 @@ const transformMessage = message => {
     ...message._doc,
     _id: message.id,
     user: user.bind(this, message._doc.user),
-    date: dateToString(message._doc.date)
-  };
-};
-const transformMessage2 = message => {
-  return {
-    ...message._doc,
-    _id: message.id,
-    user: user.bind(this, message._doc.user),
     date: dateToString(message._doc.date),
     post: post.bind(this, message._doc.post)
   };
 };
+
 module.exports = {
   createMessage: async (_, { messageInput }, { pubsub }) => {
     try {
@@ -33,10 +26,11 @@ module.exports = {
       const result = await message.save();
 
       pubsub.publish("MESSAGE_ADDED", {
-        messageAdded: transformMessage(result)
+        messageAdded: transformMessage(result),
+        post: result._doc.post
       });
 
-      return transformMessage2(result);
+      return transformMessage(result);
     } catch (err) {
       throw err;
     }
