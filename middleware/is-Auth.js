@@ -11,20 +11,20 @@ module.exports = async ({ req, connection }) => {
     authToken = req.get("Authorization");
   }
   if (!authToken) {
-    return;
+    return { pubsub };
   }
   const token = authToken.split(" ")[1];
   if (!token || token === "") {
-    return;
+    return { pubsub };
   }
   let decodedToken;
   try {
     decodedToken = await jwt.verify(token, process.env.CREDENTIALS_JWT);
   } catch (err) {
-    return;
+    return { pubsub };
   }
   if (!decodedToken) {
-    return;
+    return { pubsub };
   }
 
   const { userId } = decodedToken;
