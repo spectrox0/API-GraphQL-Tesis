@@ -62,7 +62,7 @@ module.exports = gql`
     urlImg: String!
     creator: User!
     date: String!
-    lastMessage: String
+    lastMessage: Message
     messages: [Message!]!
   }
   type Messages {

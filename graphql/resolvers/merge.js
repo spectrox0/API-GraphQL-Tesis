@@ -17,7 +17,8 @@ const message = async id => {
     ...message._doc,
     _id: message.id,
     user: user.bind(this, message._doc.user),
-    date: dateToString(message._doc.date)
+    date: dateToString(message._doc.date),
+    post: post.bind(this, message._doc.post )
   };
 };
 
@@ -30,18 +31,20 @@ const messages = async postId => {
       ...message._doc,
       _id: message.id,
       user: user.bind(this, message._doc.user),
-      date: dateToString(message._doc.date)
+      date: dateToString(message._doc.date),
+      post: post.bind(this, message._doc.post)
     };
   });
 };
 
 const lastMessage = async postId => {
   const res = await Message.findOne({ post: postId }).sort({ _id: -1 });
-  if (res[0]) {
+  if (res) {
     return {
-      ...res[0]._doc,
-      _id: res[0].id,
-      user: user.bind(this, res[0]._doc.user)
+      ...res._doc,
+      _id: res.id,
+      user: user.bind(this, res._doc.user),
+      date: dateToString(res._doc.date)
     };
   }
   return null;
@@ -53,7 +56,8 @@ const post = async id => {
     ...res._doc,
     _id: res.id,
     date: dateToString(res._doc.date),
-    creator: user.bind(this, res._doc.creator)
+    creator: user.bind(this, res._doc.creator),
+    messages : messages(id)
   };
 };
 exports.post = post;

@@ -16,8 +16,8 @@ const transformMessage = message => {
 module.exports = {
   createMessage: async (_, { messageInput }, { pubsub }) => {
     try {
-      const post = await Post.findById(messageInput.postId);
-      if (!post) throw new Error("post does not exist");
+      /* const post = await Post.findById(messageInput.postId);
+      if (!post) throw new Error("post does not exist");  */
       const message = await new Message({
         content: messageInput.content,
         user: messageInput.userId,

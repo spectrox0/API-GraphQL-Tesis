@@ -14,7 +14,7 @@ const transformPost = post => {
   };
 };
 module.exports = {
-  createPost: async (_, { postInput, contentMessage }, { token, pubsub }) => {
+  createPost: async (_, { postInput, contentMessage }, { token }) => {
     if (!token) {
       throw new Error("No Authorized");
     }
@@ -39,9 +39,6 @@ module.exports = {
       });
       await newMessage.save();
 
-      pubsub.publish(`POST_ADDED_${postInput.creator}`, {
-        postAddedUser: transformPost(result)
-      });
       return transformPost(result);
     } catch (err) {
       throw err;

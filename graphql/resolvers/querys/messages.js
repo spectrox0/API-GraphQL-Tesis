@@ -1,12 +1,13 @@
 const Message = require("../../../models/Message.js");
-const { user } = require("../merge");
+const { user , post } = require("../merge");
 const { dateToString } = require("../date.js");
 
 const transformMessage = message => ({
   ...message._doc,
   _id: message.id,
   user: user.bind(this, message._doc.user),
-  date: dateToString(message._doc.date)
+  date: dateToString(message._doc.date),
+  post: post.bind(this , message._doc.post)
 });
 module.exports = {
   messages: async (_, { first, after, postId }) => {
