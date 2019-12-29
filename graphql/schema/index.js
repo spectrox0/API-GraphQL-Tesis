@@ -24,7 +24,7 @@ module.exports = gql`
     SQL
   }
 
-  type User @cacheControl(maxAge: 240) {
+  type User @cacheControl(maxAge: 60) {
     _id: ID!
     email: String!
     name: String!
@@ -40,7 +40,7 @@ module.exports = gql`
     _id: ID!
     token: String!
   }
-  type Message @cacheControl(maxAge: 120) {
+  type Message @cacheControl(maxAge: 240) {
     _id: ID!
     user: User!
     content: String!
@@ -106,21 +106,19 @@ module.exports = gql`
   }
   type Query {
     currentUser: User
-
-    postsByCreator(userId: String!): [Post!]!
-    posts: [Post!]!
+    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)
+    posts: [Post!]! @cacheControl(maxAge: 60)
     post(_id: String!): Post!
     searchPost(
       first: Int!
       after: Int!
       categories: [Category!]!
       word: String!
-    ): [Post!]!
+    ): [Post!]! @cacheControl(maxAge: 60)
 
     messages(postId: String!, first: Int!, after: String): Messages!
-      @cacheControl(maxAge: 0)
 
-    notifications(userId: String!): [Notification!]! @cacheControl(maxAge: 0)
+    notifications(userId: String!): [Notification!]!
   }
 
   type Mutation {
