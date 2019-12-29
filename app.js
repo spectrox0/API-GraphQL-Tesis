@@ -12,7 +12,9 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   tracing: true,
-  cacheControl: true,
+  cacheControl: {
+    defaultMaxAge: 60
+  },
   cache: new RedisCache({
     host: "redis-17988.c14.us-east-1-2.ec2.cloud.redislabs.com",
     port: 17988,
