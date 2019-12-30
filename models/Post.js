@@ -14,7 +14,7 @@ const postSchema = new Schema({
   date: {
     type: Date,
     required: true,
-    default: new Date()
+    default: () => new Date()
   },
   urlImg: {
     type: String,

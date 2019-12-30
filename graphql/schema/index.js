@@ -55,15 +55,15 @@ module.exports = gql`
     post: Post!
     active: Boolean!
   }
-  type Post {
+  type Post @cacheControl(maxAge: 60) {
     _id: ID!
     category: Category
     title: String!
     urlImg: String!
-    creator: User!
+    creator: User! @cacheControl(maxAge: 60)
     date: String!
-    lastMessage: Message
-    messages: [Message!]!
+    lastMessage: Message @cacheControl(maxAge: 60)
+    messages: [Message!]! @cacheControl(maxAge: 60)
   }
   type Messages {
     hasNextPage: Boolean!
@@ -106,7 +106,7 @@ module.exports = gql`
   }
   type Query {
     currentUser: User
-    postsByCreator(userId: String!): [Post!]!
+    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)
     posts: [Post!]!
     post(_id: String!): Post!
     searchPost(
@@ -114,17 +114,17 @@ module.exports = gql`
       after: Int!
       categories: [Category!]!
       word: String!
-    ): [Post!]!
+    ): [Post!]! @cacheControl(maxAge: 60)
 
     messages(postId: String!, first: Int!, after: String): Messages!
-      @cacheControl(maxAge: 0)
 
-    notifications(userId: String!): [Notification!]! @cacheControl(maxAge: 0)
+    notifications(userId: String!): [Notification!]!
   }
 
   type Mutation {
     createUser(userInput: UserInput!): User
     login(username: String!, password: String!): AuthData!
+
     updateUser(userInput: UpdateUserInput!): User
 
     createPost(postInput: PostInput!, contentMessage: String!): Post!
@@ -134,9 +134,7 @@ module.exports = gql`
     createNotification(notificationInput: NotificationInput!): Notification!
   }
   type Subscription {
-    postAddedUser(userId: String!): Post
     messageAdded(postId: String!): Message
-    lastMessagePost(postId: String!): Message
     notificationAdded(userId: String!): Notification
   }
 `;
