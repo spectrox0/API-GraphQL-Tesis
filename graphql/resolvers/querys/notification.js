@@ -13,7 +13,6 @@ module.exports = {
   notifications: async (_, { userId }) => {
     try {
       const notifications = await Notification.find({
-        active: true,
         user: userId
       })
         .populate({

@@ -136,5 +136,6 @@ module.exports = gql`
   type Subscription {
     messageAdded(postId: String!): Message
     notificationAdded(userId: String!): Notification
+    updateLastMessage: Message
   }
 `;

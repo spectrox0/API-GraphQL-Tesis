@@ -66,12 +66,10 @@ module.exports = {
     }
     try {
       const user = await User.findById(userInput._id);
-
       const isEqual = await bcrypt.compare(userInput.password, user.password);
       if (!isEqual) {
         throw new Error("user or password incorrect");
       }
-
       await User.updateOne(
         { _id: userInput._id },
         {
