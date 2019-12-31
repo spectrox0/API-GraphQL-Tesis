@@ -1,11 +1,13 @@
 const Notification = require("../../../models/Notification.js");
 const { message, post } = require("../merge");
+const { dateToString } = require("../date.js");
 
-const transformNotification = async notification => ({
+const transformNotification = async (notification, message) => ({
   ...notification._doc,
-  _id: notification.id,
-  message: message.bind(this, notification._doc.message),
-  post: post.bind(this, notification._doc.post)
+  message: {
+    ...message._doc,
+    date: dateToString(message._doc.date)
+  }
 });
 module.exports = {
   notifications: async (_, { userId }) => {
@@ -13,11 +15,16 @@ module.exports = {
       const notifications = await Notification.find({
         active: true,
         user: userId
-      }).sort({
-        _id: -1
-      });
+      })
+        .populate({
+          path: "message",
+          populate: {
+            path: "user"
+          }
+        })
+        .populate("post");
       return notifications.map(notification =>
-        transformNotification(notification)
+        transformNotification(notification, notification.message)
       );
     } catch (err) {
       throw err;

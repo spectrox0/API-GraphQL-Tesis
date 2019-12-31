@@ -1,13 +1,11 @@
 const Message = require("../../../models/Message.js");
-const { user , post } = require("../merge");
+const { user, post } = require("../merge");
 const { dateToString } = require("../date.js");
 
 const transformMessage = message => ({
   ...message._doc,
-  _id: message.id,
-  user: user.bind(this, message._doc.user),
   date: dateToString(message._doc.date),
-  post: post.bind(this , message._doc.post)
+  post: post.bind(this, message._doc.post)
 });
 module.exports = {
   messages: async (_, { first, after, postId }) => {
@@ -16,7 +14,8 @@ module.exports = {
       if (!after) {
         messages = await Message.find({ post: postId, active: true })
           .sort({ _id: -1 })
-          .limit(first);
+          .limit(first)
+          .populate("user");
       } else {
         messages = await Message.find({
           post: postId,
@@ -24,7 +23,8 @@ module.exports = {
           _id: { $lt: after }
         })
           .sort({ _id: -1 })
-          .limit(first);
+          .limit(first)
+          .populate("user");
       }
       const hasNextPage = await Message.findOne({
         _id: { $lt: messages[messages.length - 1].id },

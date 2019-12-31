@@ -7,7 +7,6 @@ const transformMessage = message => {
   return {
     ...message._doc,
     _id: message.id,
-    user: user.bind(this, message._doc.user),
     date: dateToString(message._doc.date),
     post: post.bind(this, message._doc.post)
   };
@@ -23,6 +22,7 @@ module.exports = {
         user: messageInput.userId,
         post: messageInput.postId
       });
+      await message.populate("user").execPopulate();
       const result = await message.save();
 
       pubsub.publish("MESSAGE_ADDED", {
