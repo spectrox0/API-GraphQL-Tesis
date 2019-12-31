@@ -1,12 +1,16 @@
 const Notification = require("../../../models/Notification.js");
 
 const { post, user } = require("../merge");
+const { dateToString } = require("../date.js");
 
 const transformNotification = notification => ({
   ...notification._doc,
-  _id: notification.id,
   post: post.bind(this, notification._doc.post),
-  user: user.bind(this, notification._doc.user)
+  user: user.bind(this, notification._doc.user),
+  message: {
+    ...notification.message._doc,
+    date: dateToString(notification.message._doc.date)
+  }
 });
 
 module.exports = {
@@ -19,6 +23,11 @@ module.exports = {
       if (!res) throw new Error("error");
       const notifications = await Notification.find({
         user: userId
+      }).populate({
+        path: "message",
+        populate: {
+          path: "user"
+        }
       });
       return notifications.map(notification =>
         transformNotification(notification)

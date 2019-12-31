@@ -7,7 +7,6 @@ const { dateToString } = require("../date.js");
 const transformPost = post => {
   return {
     ...post._doc,
-    _id: post.id,
     creator: user.bind(this, post._doc.creator),
     date: dateToString(post._doc.date),
     messages: messages(post.id),

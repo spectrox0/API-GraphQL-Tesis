@@ -81,10 +81,7 @@ module.exports = {
         }
       );
       await user.save();
-      return {
-        ...user._doc,
-        _id: user.id
-      };
+      return user._doc;
     } catch (err) {
       throw err;
     }
