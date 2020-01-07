@@ -5,7 +5,6 @@ const { dateToString } = require("../date.js");
 
 const transformNotification = notification => ({
   ...notification._doc,
-  post: post.bind(this, notification._doc.post),
   user: user.bind(this, notification._doc.user),
   message: {
     ...notification.message._doc,
@@ -44,12 +43,15 @@ module.exports = {
         user: notificationInput.userId
       });
       await notification
-        .populate({
-          path: "message",
-          populate: {
-            path: "user"
-          }
-        })
+        .populate([
+          {
+            path: "message",
+            populate: {
+              path: "user"
+            }
+          },
+          "post"
+        ])
         .execPopulate();
       const resNotification = await notification.save();
       pubsub.publish("NOTIFICATION_ADDED", {
