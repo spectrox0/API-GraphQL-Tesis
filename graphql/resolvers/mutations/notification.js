@@ -43,7 +43,7 @@ module.exports = {
         user: notificationInput.userId
       });
       await notification
-        .populate([
+        .populate(
           {
             path: "message",
             populate: {
@@ -51,7 +51,7 @@ module.exports = {
             }
           },
           "post"
-        ])
+        )
         .execPopulate();
       const resNotification = await notification.save();
       pubsub.publish("NOTIFICATION_ADDED", {
