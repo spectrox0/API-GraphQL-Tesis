@@ -50,8 +50,8 @@ module.exports = {
             path: "user"
           }
         })
-        .populate("user")
-        .exec();
+        .execPopulate();
+      await notification.populate("post").execPopulate();
       const resNotification = await notification.save();
       pubsub.publish("NOTIFICATION_ADDED", {
         notificationAdded: transformNotification(resNotification),
