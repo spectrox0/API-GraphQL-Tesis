@@ -17,7 +17,7 @@ const server = new ApolloServer({
     host: "redis-17988.c14.us-east-1-2.ec2.cloud.redislabs.com",
     port: 17988,
     name: "Tesis-Graphql",
-    password: process.env.REDIS_PASSWORD
+    password: "hFWWUyFKYtEv2AZNdByUDw8vZTv9POOl"
   }),
   plugins: [responseCachePlugin()],
   context: isAuth,
@@ -35,5 +35,5 @@ mongoose
     });
   })
   .catch(err => {
-    console.log(err);
+    throw err;
   });
