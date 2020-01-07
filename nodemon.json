@@ -3,6 +3,7 @@
     "MONGO_DB": "forum-real-time",
     "CREDENTIALS_JWT": "candy102",
     "MONGO_PASSWORD": "candy102",
-    "MONGO_USER": "spectrox"
+    "MONGO_USER": "spectrox",
+    "REDIS_PASSWORD": "hFWWUyFKYtEv2AZNdByUDw8vZTv9POOl"
   }
 }
