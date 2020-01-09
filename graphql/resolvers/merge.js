@@ -57,7 +57,7 @@ const post = async id => {
     _id: res.id,
     date: dateToString(res._doc.date),
     creator: user.bind(this, res._doc.creator),
-    messages : messages(id)
+    messages: messages(id)
   };
 };
 exports.post = post;

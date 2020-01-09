@@ -106,7 +106,8 @@ module.exports = gql`
   }
   type Query {
     currentUser: User
-    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)
+
+    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)  
     posts: [Post!]!
     post(_id: String!): Post!
     searchPost(
@@ -115,7 +116,6 @@ module.exports = gql`
       categories: [Category!]!
       word: String!
     ): [Post!]! @cacheControl(maxAge: 60)
-
     messages(postId: String!, first: Int!, after: String): Messages!
 
     notifications(userId: String!): [Notification!]!
@@ -126,7 +126,7 @@ module.exports = gql`
     login(username: String!, password: String!): AuthData!
 
     updateUser(userInput: UpdateUserInput!): User
-
+    
     createPost(postInput: PostInput!, contentMessage: String!): Post!
     createMessage(messageInput: MessageInput): Message!
 
@@ -136,6 +136,5 @@ module.exports = gql`
   type Subscription {
     messageAdded(postId: String!): Message
     notificationAdded(userId: String!): Notification
-    updateLastMessage: Message
   }
 `;
