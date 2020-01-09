@@ -2,6 +2,7 @@ const Message = require("../../../models/Message.js");
 const Post = require("../../../models/Post.js");
 const { user, post } = require("../merge.js");
 const { dateToString } = require("../date.js");
+const { pubsub } = require("../../resolvers/pubsub.js");
 
 const transformMessage = message => {
   return {
@@ -12,7 +13,7 @@ const transformMessage = message => {
 };
 
 module.exports = {
-  createMessage: async (_, { messageInput }, { pubsub }) => {
+  createMessage: async (_, { messageInput }) => {
     try {
       /* const post = await Post.findById(messageInput.postId);
       if (!post) throw new Error("post does not exist");  */

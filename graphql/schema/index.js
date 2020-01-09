@@ -107,7 +107,7 @@ module.exports = gql`
   type Query {
     currentUser: User
 
-    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)  
+    postsByCreator(userId: String!): [Post!]! @cacheControl(maxAge: 60)
     posts: [Post!]!
     post(_id: String!): Post!
     searchPost(
@@ -126,7 +126,7 @@ module.exports = gql`
     login(username: String!, password: String!): AuthData!
 
     updateUser(userInput: UpdateUserInput!): User
-    
+
     createPost(postInput: PostInput!, contentMessage: String!): Post!
     createMessage(messageInput: MessageInput): Message!
 

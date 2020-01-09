@@ -18,7 +18,7 @@ const message = async id => {
     _id: message.id,
     user: user.bind(this, message._doc.user),
     date: dateToString(message._doc.date),
-    post: post.bind(this, message._doc.post )
+    post: post.bind(this, message._doc.post)
   };
 };
 

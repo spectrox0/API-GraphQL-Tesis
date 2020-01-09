@@ -2,6 +2,7 @@ const Notification = require("../../../models/Notification.js");
 
 const { post, user } = require("../merge");
 const { dateToString } = require("../date.js");
+const { pubsub } = require("../../resolvers/pubsub.js");
 
 const transformNotification = notification => ({
   ...notification._doc,
@@ -36,7 +37,7 @@ module.exports = {
       throw err;
     }
   },
-  createNotification: async (_, { notificationInput }, { pubsub }) => {
+  createNotification: async (_, { notificationInput }) => {
     try {
       const notification = await new Notification({
         post: notificationInput.postId,
