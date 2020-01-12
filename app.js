@@ -1,9 +1,9 @@
 const { ApolloServer } = require("apollo-server");
-const mongoose = require("mongoose");
 const { RedisCache } = require("apollo-server-cache-redis");
 const responseCachePlugin = require("apollo-server-plugin-response-cache");
-const graphqlSchema = require("./graphql/schema/index");
-const resolvers = require("./graphql/resolvers/index");
+const mongoose = require("mongoose");
+const graphqlSchema = require("./graphql/schema");
+const resolvers = require("./graphql/resolvers");
 const isAuth = require("./middleware/is-Auth.js");
 const subscriptions = require("./middleware/suscriptions.js");
 
@@ -17,7 +17,7 @@ const server = new ApolloServer({
     host: "redis-17988.c14.us-east-1-2.ec2.cloud.redislabs.com",
     port: 17988,
     name: "Tesis-Graphql",
-    password: "hFWWUyFKYtEv2AZNdByUDw8vZTv9POOl"
+    password: process.env.REDIS_PASSWORD
   }),
   plugins: [responseCachePlugin()],
   context: isAuth,
@@ -35,5 +35,5 @@ mongoose
     });
   })
   .catch(err => {
-    throw err;
+    console.log(err);
   });

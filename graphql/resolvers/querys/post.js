@@ -65,7 +65,7 @@ module.exports = {
       throw err;
     }
   },
-  postsByCreator: async (_, { userId }, context) => {
+  postsByCreator: async (_, { userId }) => {
     try {
       const posts = await Post.find({ creator: userId, active: true });
       return posts.map(post => transformPost(post));

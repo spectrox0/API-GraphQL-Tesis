@@ -13,7 +13,7 @@ const transformMessage = message => {
 };
 
 module.exports = {
-  createMessage: async (_, { messageInput }) => {
+  createMessage: async (_, { messageInput }, context) => {
     try {
       /* const post = await Post.findById(messageInput.postId);
       if (!post) throw new Error("post does not exist");  */

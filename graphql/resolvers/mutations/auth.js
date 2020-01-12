@@ -21,7 +21,7 @@ module.exports = {
       }
       const hashedPassword = await bcrypt.hash(userInput.password, 12);
 
-      const newUser = await new User({
+      const newUser = new User({
         email: userInput.email.toLowerCase(),
         name: userInput.name,
         password: hashedPassword,
@@ -70,7 +70,7 @@ module.exports = {
       if (!isEqual) {
         throw new Error("user or password incorrect");
       }
-      await User.updateOne(
+      await User.findOneAndUpdate(
         { _id: userInput._id },
         {
           $set: {
