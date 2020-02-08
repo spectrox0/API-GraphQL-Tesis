@@ -6,11 +6,6 @@ const graphqlSchema = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
 const isAuth = require("./middleware/is-Auth.js");
 const subscriptions = require("./middleware/suscriptions.js");
-// Load env vars
-require("dotenv").config();
-
-// Require agent
-const spmAgent = require("spm-agent-nodejs");
 
 const server = new ApolloServer({
   typeDefs: graphqlSchema,
