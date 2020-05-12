@@ -1,7 +1,7 @@
 {
   "env": {
     "MONGO_DB": "forum-real-time",
-    "MONGO_PASSWORD": "sasas",
+    "MONGO_PASSWORD": "CAP6dyq4GUlNg4xB",
     "MONGO_USER": "spectrox",
     "REDIS_PASSWORD": "hFWWUyFKYtEv2AZNdByUDw8vZTv9POOl"
   }
