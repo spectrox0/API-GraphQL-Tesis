@@ -2,7 +2,7 @@
   "env": {
     "CREDENTIALS_JWT": "bijDchuJ71Z0ke0B",
     "MONGO_DB": "forum-real-time",
-    "MONGO_PASSWORD": "CAP6dyq4GUlNg4xB",
+    "MONGO_PASSWORD": "bijDchuJ71Z0ke0B",
     "MONGO_USER": "spectrox",
     "REDIS_PASSWORD": "hFWWUyFKYtEv2AZNdByUDw8vZTv9POOl"
   }
